@@ -24,6 +24,10 @@ def main():
         main_surface.fill(WHITE)
         block.top += speedy
         block.left += speedx
+        if block.bottom > 500 or block.top < 0:
+            speedy = -speedy
+        if block.left < 0 or block.right > 500:
+            speedx = -speedx
         pygame.draw.rect(main_surface, RED, (block), 0)
         pygame.display.update()
 
