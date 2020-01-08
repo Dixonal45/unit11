@@ -1,6 +1,7 @@
 import pygame, sys
 from pygame.locals import *
 import brick
+import paddle
 
 pygame.init()
 
@@ -29,6 +30,8 @@ def main():
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
 
+    colors = [RED, ORANGE, YELLOW, GREEN, CYAN]
+
     main_surface = pygame.display.set_mode((APPLICATION_WIDTH, APPLICATION_HEIGHT), 0, 32)
     main_surface.fill((255, 255, 255))
 
@@ -36,18 +39,18 @@ def main():
     # the screen (BRICK_Y_OFFSET)
     x_pos = BRICK_SEP
     y_pos = BRICK_Y_OFFSET
+    for color in colors:
+        for y in range(2):
+            for x in range(BRICKS_PER_ROW):
+                my_brick = brick.Brick(BRICK_WIDTH, BRICK_HEIGHT, color)
+                main_surface.blit(my_brick.image, (x_pos, y_pos))
+                x_pos = x_pos + BRICK_SEP + BRICK_WIDTH
+            y_pos += BRICK_HEIGHT + BRICK_SEP
+            x_pos = BRICK_SEP
 
-    for x in range(BRICKS_PER_ROW):
-        my_brick = brick.Brick(BRICK_WIDTH, BRICK_HEIGHT, RED)
-        main_surface.blit(my_brick.image, (x_pos, y_pos))
-        x_pos = x_pos + BRICK_SEP + BRICK_WIDTH
-
-    new_y_pos = y_pos + BRICK_SEP + BRICK_HEIGHT
-    for x in range(BRICKS_PER_ROW):
-        my_brick = brick.Brick(BRICK_WIDTH, BRICK_HEIGHT, RED)
-        main_surface.blit(my_brick.image, (x_pos, new_y_pos))
-        x_pos = x_pos + BRICK_SEP + BRICK_WIDTH
-
+    y_pos = APPLICATION_HEIGHT - PADDLE_Y_OFFSET
+    my_paddle = paddle.Paddle(main_surface, BLACK, PADDLE_WIDTH, PADDLE_HEIGHT)
+    main_surface.blit(my_paddle.image, (x_pos, y_pos))
 
     while True:
         pygame.display.update()
@@ -57,7 +60,3 @@ def main():
                 sys.exit()
 
 main()
-
-# list of colors
-# how many rows x in range
-# y in range bricks per row
