@@ -32,8 +32,10 @@ def main():
 
     colors = [RED, ORANGE, YELLOW, GREEN, CYAN]
 
+    brick_group = pygame.sprite.Group()
+
     main_surface = pygame.display.set_mode((APPLICATION_WIDTH, APPLICATION_HEIGHT), 0, 32)
-    main_surface.fill((255, 255, 255))
+    main_surface.fill(WHITE)
 
     # Step 1: Use loops to draw the rows of bricks. The top row of bricks should be 70 pixels away from the top of
     # the screen (BRICK_Y_OFFSET)
@@ -45,18 +47,29 @@ def main():
                 my_brick = brick.Brick(BRICK_WIDTH, BRICK_HEIGHT, color)
                 main_surface.blit(my_brick.image, (x_pos, y_pos))
                 x_pos = x_pos + BRICK_SEP + BRICK_WIDTH
+                brick_group.add(my_brick)
             y_pos += BRICK_HEIGHT + BRICK_SEP
             x_pos = BRICK_SEP
 
-    y_pos = APPLICATION_HEIGHT - PADDLE_Y_OFFSET
     my_paddle = paddle.Paddle(main_surface, BLACK, PADDLE_WIDTH, PADDLE_HEIGHT)
-    main_surface.blit(my_paddle.image, (x_pos, y_pos))
+    my_paddle.rect.y = APPLICATION_HEIGHT - PADDLE_Y_OFFSET
+    main_surface.blit(my_paddle.image, my_paddle.rect)
 
     while True:
+        main_surface.fill(WHITE)
+        my_paddle.move(pygame.mouse.get_pos())
+        main_surface.blit(my_paddle.image, my_paddle.rect)
         pygame.display.update()
         for event in pygame.event.get():
             if event == QUIT:
                 pygame.quit()
                 sys.exit()
+        for bricks in brick_group:
+            bricks.blit(main_surface)
+
+
+
+# make sprite group
+# add to sprite group
 
 main()
