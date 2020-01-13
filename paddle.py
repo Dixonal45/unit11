@@ -25,3 +25,4 @@ class Paddle(pygame.sprite.Sprite):
     # Track the x coordinate, don't let it move off the screen
     def move(self, position):
         self.rect.x = position[0]
+
