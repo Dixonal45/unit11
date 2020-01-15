@@ -19,7 +19,7 @@ def main():
     BRICK_HEIGHT = 8
     PADDLE_WIDTH = 60
     PADDLE_HEIGHT = 10
-    RADIUS_OF_BALL = 10
+    RADIUS_OF_BALL = 30
     NUM_TURNS = 3
 
     # Sets up the colors
@@ -37,7 +37,8 @@ def main():
     paddle_group = pygame.sprite.Group()
 
     main_surface = pygame.display.set_mode((APPLICATION_WIDTH, APPLICATION_HEIGHT), 0, 32)
-    main_surface.fill(WHITE)
+    bg = pygame.image.load("candystore.png")
+    main_surface.blit(bg, (0, 0))
 
     # Step 1: Use loops to draw the rows of bricks. The top row of bricks should be 70 pixels away from the top of
     # the screen (BRICK_Y_OFFSET)
@@ -67,7 +68,7 @@ def main():
     tries = 0
 
     while True:
-        main_surface.fill(WHITE)
+        main_surface.blit(bg, (0, 0))
         for a_brick in bricks_group:
             main_surface.blit(a_brick.image, a_brick.rect)
         my_paddle.move(pygame.mouse.get_pos())
