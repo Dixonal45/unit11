@@ -22,8 +22,8 @@ class Ball(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         # pygame.draw.circle(self.image, (0, 0, 0), (5, 5), 5, 0)
         # Add a circle to represent the ball to the surface just created.
-        self.x_speed = 4
-        self.y_speed = 5
+        self.x_speed = 10
+        self.y_speed = 12
 
     def move(self):
         self.rect.x += self.x_speed

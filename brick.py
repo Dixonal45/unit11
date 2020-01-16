@@ -13,7 +13,7 @@ class Brick(pygame.sprite.Sprite):
         self.color = color
 
         # Create a surface with the correct height and width
-        self.image = pygame.image.load("chocolate.png")
+        self.image = pygame.image.load("twix.png")
         # self.image = pygame.Surface((width, height))
 
         # Get the rect coordinates

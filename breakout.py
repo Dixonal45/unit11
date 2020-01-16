@@ -66,6 +66,7 @@ def main():
     my_ball.rect.y = APPLICATION_HEIGHT/2
     main_surface.blit(my_ball.image, my_ball.rect)
     tries = 0
+    start_ticks = pygame.time.get_ticks()
 
     while True:
         main_surface.blit(bg, (0, 0))
@@ -77,12 +78,20 @@ def main():
         my_ball.move()
         my_ball.collide(paddle_group)
         my_ball.collide_brick(bricks_group)
+        burp_sound = pygame.mixer.Sound('Burp+3.wav')
+        cheer_sound = pygame.mixer.Sound('cheer.wav')
         if my_ball.rect.bottom >= APPLICATION_HEIGHT:
+            burp_sound.play()
             my_ball.rect.y = APPLICATION_HEIGHT / 2
             tries += 1
         if tries == 3:
+            main_surface.fill(BLACK)
+            font = pygame.font.SysFont('Comic Sans MS', 50)
+            label = font.render('GAME OVER', False, WHITE)
+            main_surface.blit(label, (100, 250))
             break
         if len(bricks_group) == 0:
+            cheer_sound.play()
             break
         pygame.display.update()
         for event in pygame.event.get():
